@@ -7,7 +7,7 @@ from time import sleep
 while True:
     port = input('Введите номер порта или нажмите enter для значиния по умолчанию: ')
     if port == '':
-        port = 9090
+        port = 9097
         break
     elif not port.isnumeric():
         print('порт указан неверно')
@@ -29,13 +29,14 @@ while True:
 sock = socket.socket()
 sock.setblocking(1)
 sock.connect((host, port))
-
-#msg = input()
-msg = "exi"
-sock.send(msg.encode())
-
-data = sock.recv(1024)
-
-sock.close()
-
+while (True):
+    msg = input("Msg: ")
+    #msg = "exi"
+    sock.send(msg.encode())
+    
+    data = sock.recv(1024)
+    if msg == "exit":    
+        sock.close()
+        break
+    
 print(data.decode())
